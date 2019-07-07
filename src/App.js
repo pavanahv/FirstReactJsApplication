@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person";
+import { brotliDecompress } from "zlib";
 
 class App extends Component {
   state = {
@@ -14,11 +15,11 @@ class App extends Component {
 
   };
 
-  switchPersonHandler = () =>{
+  switchPersonHandler = (fname) =>{
     this.setState(
      {
       person : [
-        { name : "pavan kumar reddy", age : 23},
+        { name : fname, age : 23},
         {name : "ahv", age : 24},
         {name : "reddy", age:21}
       ]
@@ -38,10 +39,17 @@ class App extends Component {
      );
   }
   render() {
+    const style = {
+      backgroundColor:"blue",
+      border:"1px solid black"
+    }
+
     return (
       <div className="App">
         <h1>This is my first react js application</h1>
-        <button onClick={this.switchPersonHandler}>Switch Person</button>
+        <button
+        style={style}
+         onClick={ () => this.switchPersonHandler("pavan kumar reddy")}>Switch Person</button>
         <Person name={this.state.person[0].name} age={this.state.person[0].age} />
         <Person name={this.state.person[1].name} age={this.state.person[1].age}
         click = {this.switchPersonHandler}
