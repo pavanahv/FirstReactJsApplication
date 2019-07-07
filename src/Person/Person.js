@@ -5,7 +5,7 @@ const Person = (props) => {
     <div>
       <h2>My name is {props.name}</h2>
       <p> Age is {props.age}</p>
-      <p>{props.children}</p>
+      <p onClick={props.click}>{props.children}</p>
     </div>
   );
 };
