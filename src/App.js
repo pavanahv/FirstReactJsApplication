@@ -14,10 +14,23 @@ class App extends Component {
 
   };
 
+  switchPersonHandler = () =>{
+    this.setState(
+     {
+      person : [
+        { name : "pavan kumar reddy", age : 23},
+        {name : "ahv", age : 24},
+        {name : "reddy", age:21}
+      ]
+     } 
+    );
+  }
+
   render() {
     return (
       <div className="App">
         <h1>This is my first react js application</h1>
+        <button onClick={this.switchPersonHandler}>Switch Person</button>
         <Person name={this.state.person[0].name} age={this.state.person[0].age} />
         <Person name={this.state.person[1].name} age={this.state.person[1].age}>
           This is my intial
