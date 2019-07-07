@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Person from "./Person/Person";
 
-class App extends Component {
-  state = {
+const App = props => {
+  const [personState,personStateHandler] = useState( {
     person : [
       { name : "pavan", age : 23},
       {name : "ahv", age : 24},
@@ -12,10 +12,10 @@ class App extends Component {
 
     otherState : "otherStateValue"
 
-  };
+  });
 
-  switchPersonHandler = () =>{
-    this.setState(
+  const switchPersonHandler = () =>{
+    personStateHandler(
      {
       person : [
         { name : "pavan kumar reddy", age : 23},
@@ -26,19 +26,18 @@ class App extends Component {
     );
   }
 
-  render() {
     return (
       <div className="App">
         <h1>This is my first react js application</h1>
-        <button onClick={this.switchPersonHandler}>Switch Person</button>
-        <Person name={this.state.person[0].name} age={this.state.person[0].age} />
-        <Person name={this.state.person[1].name} age={this.state.person[1].age}>
+        <button onClick={switchPersonHandler}>Switch Person</button>
+        <Person name={personState.person[0].name} age={personState.person[0].age} />
+        <Person name={personState.person[1].name} age={personState.person[1].age}>
           This is my intial
         </Person>
-        <Person name={this.state.person[2].name} age={this.state.person[2].age} />
+        <Person name={personState.person[2].name} age={personState.person[2].age} />
       </div>
     );
-  }
+
 }
 
 export default App;
