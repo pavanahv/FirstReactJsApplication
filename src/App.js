@@ -5,58 +5,52 @@ import { brotliDecompress } from "zlib";
 
 class App extends Component {
   state = {
-    person : [
-      { name : "pavan", age : 23},
-      {name : "ahv", age : 24},
-      {name : "reddy", age:22}
+    person: [
+      { name: "pavan", age: 23 },
+      { name: "ahv", age: 24 },
+      { name: "reddy", age: 22 }
     ],
 
-    otherState : "otherStateValue"
-
+    otherState: "otherStateValue",
+    showPersons: false
   };
 
-  switchPersonHandler = (fname) =>{
-    this.setState(
-     {
-      person : [
-        { name : fname, age : 23},
-        {name : "ahv", age : 24},
-        {name : "reddy", age:21}
-      ]
-     } 
-    );
-  }
+  switchPersonHandler = () => {
+    const showPersons = this.state.showPersons;
+    this.setState({
+      showPersons: !showPersons
+    });
+  };
 
   changeHandler = event => {
-    this.setState(
-      {
-       person : [
-         { name : "pavan", age : 23},
-         {name : event.target.value, age : 24},
-         {name : "reddy", age:21}
-       ]
-      } 
-     );
-  }
+    this.setState({
+      person: [
+        { name: "pavan", age: 23 },
+        { name: event.target.value, age: 24 },
+        { name: "reddy", age: 21 }
+      ]
+    });
+  };
   render() {
     const style = {
-      backgroundColor:"blue",
-      border:"1px solid black"
-    }
+      backgroundColor: "blue",
+      color: "white",
+      border: "1px solid black"
+    };
 
+    let personsComponent = null;
+    if (this.state.showPersons) {
+      personsComponent = this.state.person.map(p => {
+        return <Person name={p.name} age={p.age} />;
+      });
+    }
     return (
       <div className="App">
         <h1>This is my first react js application</h1>
-        <button
-        style={style}
-         onClick={ () => this.switchPersonHandler("pavan kumar reddy")}>Switch Person</button>
-        <Person name={this.state.person[0].name} age={this.state.person[0].age} />
-        <Person name={this.state.person[1].name} age={this.state.person[1].age}
-        click = {this.switchPersonHandler}
-        change={this.changeHandler}>
-          This is my intial
-        </Person>
-        <Person name={this.state.person[2].name} age={this.state.person[2].age} />
+        <button style={style} onClick={this.switchPersonHandler}>
+          Toggle Person
+        </button>
+        <div>{personsComponent}</div>
       </div>
     );
   }
