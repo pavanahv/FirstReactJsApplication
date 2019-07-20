@@ -46,10 +46,13 @@ class App extends Component {
 
   render() {
     const style = {
-      backgroundColor: "blue",
+      backgroundColor: "green",
       color: "white",
-      border: "1px solid black"
+      border: "1px solid black",
+      padding: "16px"
     };
+
+    let personStyleClasses = [];
 
     let personsComponent = null;
     if (this.state.showPersons) {
@@ -64,11 +67,17 @@ class App extends Component {
           />
         );
       });
+
+      style.backgroundColor = "red";
     }
+
+    if (this.state.person.length <= 2) personStyleClasses.push("red");
+    if (this.state.person.length <= 1) personStyleClasses.push("bold");
 
     return (
       <div className="App">
         <h1>This is my first react js application</h1>
+        <p className={personStyleClasses.join(" ")}>Person count</p>
         <button style={style} onClick={this.switchPersonHandler}>
           Toggle Person
         </button>
