@@ -6,9 +6,9 @@ import { brotliDecompress } from "zlib";
 class App extends Component {
   state = {
     person: [
-      { name: "pavan", age: 23 },
-      { name: "ahv", age: 24 },
-      { name: "reddy", age: 22 }
+      { id: "a1", name: "pavan", age: 23 },
+      { id: "a2", name: "ahv", age: 24 },
+      { id: "a3", name: "reddy", age: 22 }
     ],
 
     otherState: "otherStateValue",
@@ -22,13 +22,17 @@ class App extends Component {
     });
   };
 
-  changeHandler = event => {
+  changeHandler = (event, key) => {
+    let personIndex = this.state.person.findIndex(p => {
+      return p.id === key;
+    });
+    let person = { ...this.state.person[personIndex] };
+    person.name = event.target.value;
+    let persons = [...this.state.person];
+    persons[personIndex] = person;
+
     this.setState({
-      person: [
-        { name: "pavan", age: 23 },
-        { name: event.target.value, age: 24 },
-        { name: "reddy", age: 21 }
-      ]
+      person: persons
     });
   };
 
@@ -54,7 +58,9 @@ class App extends Component {
           <Person
             name={p.name}
             age={p.age}
+            key={p.id}
             click={() => this.deletePersonHandler(index)}
+            change={event => this.changeHandler(event, p.id)}
           />
         );
       });
