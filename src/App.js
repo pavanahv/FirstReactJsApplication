@@ -31,6 +31,15 @@ class App extends Component {
       ]
     });
   };
+
+  deletePersonHandler = personIndex => {
+    let persons = [...this.state.person];
+    persons.splice(personIndex, 1);
+    this.setState({
+      person: persons
+    });
+  };
+
   render() {
     const style = {
       backgroundColor: "blue",
@@ -40,10 +49,17 @@ class App extends Component {
 
     let personsComponent = null;
     if (this.state.showPersons) {
-      personsComponent = this.state.person.map(p => {
-        return <Person name={p.name} age={p.age} />;
+      personsComponent = this.state.person.map((p, index) => {
+        return (
+          <Person
+            name={p.name}
+            age={p.age}
+            click={() => this.deletePersonHandler(index)}
+          />
+        );
       });
     }
+
     return (
       <div className="App">
         <h1>This is my first react js application</h1>
